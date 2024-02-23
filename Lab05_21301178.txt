@@ -1,0 +1,148 @@
+﻿class Array_Stack:
+    
+    def __init__(self, element = 0):
+        self.array = [0]*1000
+        self.element = element
+        self.ind = -1
+        
+    def push(self, element):
+        if self.ind > len(self.array):
+            print('Invalid')
+        else:
+            self.ind += 1
+            self.array[self.ind] = element
+        
+    def peek(self):
+        if self.ind < 0:
+            return 'Invalid'
+        else:
+            return self.array[self.ind]
+    
+    def pop(self):
+        if self.ind < 0:
+            return 'Invalid'
+        else:
+            self.array[self.ind] = 0
+            self.ind -= 1
+    
+
+
+def Parenthesis_Balancing(expression):
+    paren_dic = {'[':']', '(':')', '{':'}'}
+    idx = 1
+    paren_stack = Array_Stack()
+    output = 'This expression is correct'
+    for elem in expression:
+        
+        if elem in paren_dic:
+            paren_stack.push(elem)
+        elif elem in paren_dic.values():
+            if paren_stack.peek() == 'Invalid':
+                output = ('This expression is NOT correct.\nError at character #' +str(idx)+ '.'+ "'"+elem+"'"+ '- not opened')
+                break
+            elif paren_dic[paren_stack.peek()] == elem: 
+                paren_stack.pop()
+            else:
+                char_num = 1
+                for char in expression:
+                    if paren_stack.peek() == char:
+                        break
+                    char_num += 1
+                        
+                output = ('This expression is Not correct.\nError at character #' +str(char_num)+ '.'+ "'"+paren_stack.peek()+"'"+ '- not closed')
+                break
+        
+        idx += 1
+    
+    print(output)   
+    
+    
+expression_1 = input('Enter your expression 1: ')
+Parenthesis_Balancing(expression_1)    
+    
+### Linked list stack
+class Node:
+    
+    def __init__(self, element, n = None):
+        self.element = element
+        self.next = n
+    
+class Linked_List_Stack:
+    
+    def __init__(self, element = 0):
+        
+        self.head = Node(None)
+        self.top = self.head
+        
+    def push(self, element):
+        
+        node = None
+        
+        if self.head.element == None:
+            self.head = Node(element)
+            self.top = self.head
+        else:
+            top = self.top
+            node = Node(element)
+            top.next = node
+            self.top = node
+            
+            
+    def peek(self):
+        
+        if self.top == None:
+            return None
+        else:
+            return self.top.element
+    
+    
+    def pop(self):
+        
+        top = self.head
+        if self.head == None:
+            print('Stack Empty, action pop cannot be performed')
+        elif self.head.next == None:
+            self.head = None
+            self.top = None
+        else:
+            while top.next != None:
+                if top.next == self.top:
+                    top.next = None
+                    self.top = top
+                else:
+                    top = top.next
+    
+
+
+def Parenthesis_Balancing(expression):
+    paren_dic = {'[':']', '(':')', '{':'}'}
+    idx = 1
+    paren_stack = Linked_List_Stack()
+    output = 'This expression is correct'
+    for elem in expression:
+        
+        if elem in paren_dic:
+            paren_stack.push(elem)
+        elif elem in paren_dic.values():
+            if paren_stack.peek() == None:
+                output = ('This expression is NOT correct.\nError at character #' +str(idx)+ '.'+ "'"+elem+"'"+ '- not opened')
+                break
+            elif paren_dic[paren_stack.peek()] == elem: 
+                paren_stack.pop()
+            else:
+                char_num = 1
+                for char in expression:
+                    if paren_stack.peek() == char:
+                        break
+                    char_num += 1
+                        
+                output = ('This expression is Not correct.\nError at character #' +str(char_num)+ '.'+ "'"+paren_stack.peek()+"'"+ '- not closed')
+                break
+        
+        idx += 1
+    
+    print(output)
+            
+    
+expression = input('Enter your expression: ')
+Parenthesis_Balancing(expression)

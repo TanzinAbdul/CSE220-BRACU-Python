@@ -1,0 +1,192 @@
+#Task - 1
+def shiftLeft(source, k):
+    for j in range(k):
+        i = 0
+        while i != len(source)-1:
+            source[i] = source[i+1]
+            i += 1
+        source[len(source)-1] = 0
+    print(source)  
+source=[10,20,30,40,50,60]          
+shiftLeft(source, 3)
+#Output: [40, 50, 60, 0, 0, 0]
+	
+
+#Task - 2
+def rotateLeft(source, k):
+    for j in range(k):
+        i = 0
+        x = source[0]
+        while i != len(source)-1:
+            source[i] = source[i+1]
+            i += 1
+        source[len(source)-1] = x
+    print(source)  
+source=[10,20,30,40,50,60]          
+rotateLeft(source, 3)
+#Output: [40, 50, 60, 10, 20, 30]
+	
+
+#Task - 3
+def shiftRight(source, k):
+    for j in range(k):
+        i = len(source)-1
+        while i >= 0:
+            source[i] = source[i-1]
+            i -= 1
+        source[0] = 0
+    print(source)   
+source=[10,20,30,40,50,60]          
+shiftRight(source, 3)
+#Output: [0, 0, 0, 10, 20, 30]
+
+#Task - 4
+def rotateRight(source, k):
+    for j in range(k):
+        x = source[len(source)-1]
+        i = len(source)-1
+        while i >= 0:
+            source[i] = source[i-1]
+            i -= 1
+        source[0] = x
+    print(source)    
+source=[10,20,30,40,50,60]          
+rotateRight(source, 3)
+#Output: [40, 50, 60, 10, 20, 30]
+	
+
+#Task - 5
+def remove(source, size, idx):
+    if idx > size -1:
+        print('Invalid Index')
+    else:
+        while idx < size-1:
+            source[idx] = source[idx+1]
+            idx += 1
+        source[size-1] = 0
+        print(source)    
+source=[10,20,30,40,50,0,0]    
+remove(source,5,2)
+#Output: [10, 20, 40, 50, 0, 0, 0]
+	
+
+#Task - 6
+def removeAll( source, size, element):
+    if element not in source:
+        print('Element not found in source.')
+    else:
+        i = 0
+        while i < size-1:
+            if source[i] == element:
+                j = i
+                while j < size-1:
+                    source[j] = source[j+1]
+                    source[size-1] = 0
+                    j += 1
+            i += 1
+        print(source)
+source=[10,2,30,2,50,2,2,0,0]
+removeAll(source,7,2)
+#Output: [10, 30, 50, 0, 0, 0, 0, 0, 0]
+	
+
+#Task - 7
+def balance(source):
+    i = 0
+    while i < len(source)-1:
+        sum1 = 0
+        sum2 = 0
+        for k in range(i):
+            sum1 += source[k]
+        for j in range(i, len(source)):
+            sum2 += source[j]
+        if sum1 == sum2:
+            print(True)
+            break
+        i += 1
+    if sum1 != sum2:
+        print(False)
+        
+user_input = (input('Enter your array: ').strip('[]')).split(', ')
+user_array = [int(elem) for elem in user_input]
+balance(user_array)
+#Input: [2, 1, 1, 2, 1]
+#Output: False
+	
+
+#Task - 8
+def series(n):
+    array = [0]*n
+    result = [0]*n*n
+    i = n-1
+    j = 1
+    start = n*n-n
+    end = n*n
+    while i > -1:
+        array[i] = j
+        j += 1
+        i -= 1
+        l = 0
+    for i in range(n):
+        idx = 0
+        for j in range(start, end):
+            result[j] = array[idx]
+            idx += 1
+        array[l] = 0
+        l += 1
+        end = start
+        start -= n
+    print('n=' + str(n) + ' : {', end = '')    
+    for ind in range(len(result)):
+        if ind == len(result)-1:
+            print(result[ind], end ='')
+        else:
+            print(result[ind], end=', ')
+    print('}')
+ 
+user_num = int(input('Enter the value of n: '))
+series(user_num)
+#Input: 4
+#Output: n=4 : {0, 0, 0, 1, 0, 0, 2, 1, 0, 3, 2, 1, 4, 3, 2, 1}
+	
+
+#Task - 9
+def maxBunch(source):
+    bunch = 1
+    for ind in range(len(source)-1):
+        if source[ind] == source[ind+1]:
+            bunch += 1
+        else:
+            bunch = 1
+    return bunch
+
+
+user_input = (input('Enter your array: ').strip('[]')).split(', ')
+user_array = [int(elem) for elem in user_input]
+print(maxBunch(user_array))
+#Input: [1, 2, 2, 3, 4, 4, 4]
+#Output: 3
+	
+
+#Task - 10
+def repetition(source):
+    rep_dict = {}
+    for num in source:
+        if num not in rep_dict:
+            rep_dict[num] = 1
+        else:
+            rep_dict[num] += 1
+    
+    for key1 in rep_dict.keys():
+        for key2 in rep_dict.keys():
+            if (key1 != key2) and (rep_dict[key1] == rep_dict[key2] and rep_dict[key1] != 1):
+                return True
+            else:
+                result = False
+    return result
+    
+user_input = (input('Enter your array: ').strip('[]')).split(',')
+user_array = [int(elem) for elem in user_input]  
+print(repetition(user_array))
+#Input: [3,4,6,3,4,7,4,6,8,6,6]
+#Output: False

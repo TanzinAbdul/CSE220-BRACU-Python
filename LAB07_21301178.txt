@@ -1,0 +1,102 @@
+﻿class KeyIndex:
+    
+    def __init__(self, array):
+        
+        self.min = array[0]
+        max_val = array[0]
+        for elem in array:
+            if elem < self.min:
+                self.min = elem
+            if elem > max_val:
+                max_val = elem
+        
+        
+        
+        if self.min < 0:
+            self.aux_array = [0]*(max_val+1-self.min)
+        else:
+            self.aux_array = [0]*(max_val+1)
+
+
+                
+        for elem in array:
+            self.aux_array[elem-self.min] += 1
+        
+        print(self.aux_array)
+        
+    def search(self, elem):
+        if self.min <0:
+            if self.aux_array[elem-self.min] > 0:
+                return True
+            else:
+                return False
+        else:
+            if self.aux_array[elem] > 0:
+                return True
+            else:
+                return False
+            
+    def sort(self):
+        i = 0
+        while i < len(self.aux_array):
+            if self.aux_array[i]>0:
+                for j in range(self.aux_array[i]):
+                    print(i+self.min, end = ', ')
+            i += 1
+        print()
+        
+array = [-2, -1, 2, 3, 4, 5]
+aux_array = KeyIndex(array)
+print(aux_array.search(3))  
+aux_array.sort()
+
+
+#Hashing with linear probing
+
+
+def Hashing(array):
+
+
+    consonants = ('BCDFGJKLMNPQSTVXZHRWY')
+    numerics = ('1234567890')
+    hashing_table = [0]*9
+
+
+    num_add = 0
+    con_chr = 0
+
+
+    for val in array:
+        for chr in val:
+            if chr in consonants:
+                con_chr += 1
+            elif chr in numerics:
+                num_add += int(chr)
+
+
+        index = (con_chr*24+num_add)%9
+
+
+        if hashing_table[index] == 0:
+            hashing_table[index] = val
+        else:
+            while hashing_table[index] != 0:
+                index = (index + 1)%9
+            hashing_table[index] = val
+
+
+
+
+
+
+    print(hashing_table)
+
+
+
+
+
+
+array = ['ST1E89B8A32', 'YN6CGJVZL7X', 'XPK957PILP1', 'F9O32DTG6G4', 'IG32S3V4BB6']
+
+
+Hashing(array)
